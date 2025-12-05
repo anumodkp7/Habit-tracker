@@ -67,7 +67,7 @@ if (homeDateLabel) homeDateLabel.textContent = prettyDate(today);
 /* --------- SCHEDULE (HOME PAGE) --------- */
 const scheduleBlocks = [
   // Morning
-  { time: "6:00 – 6:30 am", label: "Brush & Toilet", start: "06:00", end: "06:30" },
+  { time: "6:00 – 6:30 am", label: "Brush & Washroom", start: "06:00", end: "06:30" },
   { time: "6:30 – 7:15 am", label: "Workout", start: "06:30", end: "07:15" },
   { time: "7:15 – 7:30 am", label: "Walk outside", start: "07:15", end: "07:30" },
   { time: "7:30 – 8:00 am", label: "Brain challenge", start: "07:30", end: "08:00" },

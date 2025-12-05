@@ -43,6 +43,7 @@ const KEYS = {
   workJournal: "lifeos_workJournal_v1",
   personalGoals: "lifeos_personalGoals_v1", // {daily, weekly, monthly, long}
   workGoals: "lifeos_workGoals_v1",
+  habits: "lifeos_habits_v1"
 };
 
 /* --------- PAGE SWITCHING --------- */

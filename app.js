@@ -794,20 +794,30 @@ function updateAllProgress() {
   renderWorkTasks();
 
      // home progress = today's HABITS only
-  const todayKey = dateKey(new Date());
-  const dayHabits = habitData[todayKey] || {};
-  const totalHabits = HABITS.length;
-  const doneHabits = HABITS.filter(h => dayHabits[h.id]).length;
-  const pendingHabits = totalHabits - doneHabits;
-  const percentHabits =
-    totalHabits === 0 ? 0 : Math.round((doneHabits / totalHabits) * 100);
+ const todayKey = dateKey(new Date());
+const dayHabits = habitData[todayKey] || {};
+const totalHabits = HABITS.length;
+const doneHabits = HABITS.filter(h => dayHabits[h.id]).length;
+const pendingHabits = totalHabits - doneHabits;
 
-  const habitProgress = {
-    total: totalHabits,
-    done: doneHabits,
-    pending: pendingHabits,
-    percent: percentHabits,
-  };
+const habitProgress = {
+  total: totalHabits,
+  done: doneHabits,
+  pending: pendingHabits,
+  percent: totalHabits === 0 ? 0 : Math.round((doneHabits / totalHabits) * 100),
+};
+
+updateProgressRing(
+  homeCircle,
+  homePercent,
+  habitProgress,
+  homeHeadline,
+  homeDetail,
+  homeCountTotal,
+  homeCountDone,
+  homeCountPending
+);
+
 
   updateProgressRing(
     homeCircle,

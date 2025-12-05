@@ -925,24 +925,27 @@
     }
 
     // --- Schedule blocks ---
-    const scheduleBlocks = [
-      { time: "6:00 – 6:10 am", text: "Brush & Toilet" },
-      { time: "6:10 – 6:35 am", text: "Workout", habitId: "workout" },
-      { time: "6:35 – 7:15 am", text: "Bath + Breakfast" },
-      { time: "7:15 – 7:50 am", text: "Brain challenge", habitId: "brain" },
-      { time: "7:50 – 8:30 am", text: "Extra buffer / Breakfast" },
-      { time: "8:30 – 9:00 am", text: "Office" },
+       const scheduleBlocks = [
+      { time: "6:00 – 6:30 am", text: "Brush & Toilet" },
+      { time: "6:30 – 7:15 am", text: "Workout", habitId: "workout" },
+      { time: "7:15 – 7:30 am", text: "Walk outside" },
+      { time: "7:30 – 8:00 am", text: "Brain challenge", habitId: "brain" },
+      { time: "8:00 – 8:30 am", text: "Bath & Breakfast" },
+      { time: "8:30 – 9:00 am", text: "Start office" },
+      { time: "9:00 am – 7:00 pm", text: "Office" },
+
       { time: "7:00 – 7:30 pm", text: "Skill development", habitId: "skill" },
       { time: "7:30 – 7:55 pm", text: "Excel", habitId: "excel" },
       { time: "7:55 – 8:05 pm", text: "Forex", habitId: "forex" },
       { time: "8:00 – 8:30 pm", text: "NISM certification", habitId: "nism" },
       { time: "8:30 – 9:00 pm", text: "Dinner" },
-      { time: "9:00 – 9:20 pm", text: "Reading", habitId: "read" },
+      { time: "9:00 – 9:20 pm", text: "Read", habitId: "read" },
       { time: "9:30 – 10:00 pm", text: "YouTube / Idea panel", habitId: "yt" },
-      { time: "10:00 – 10:20 pm", text: "Prayer", habitId: "pray" },
+      { time: "10:00 – 10:20 pm", text: "Pray", habitId: "pray" },
       { time: "10:20 – 11:00 pm", text: "Meditation / Scripting", habitId: "meditation" },
       { time: "11:00 pm – 6:00 am", text: "Sleep" }
     ];
+
 
     function renderSchedule() {
       scheduleListEl.innerHTML = "";

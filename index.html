@@ -257,6 +257,29 @@
         <div id="workTaskList" class="task-list"></div>
         <div class="task-hint">Drag tasks to reorder. Checked = moved automatically to bottom.</div>
       </div>
+            <!-- Timeframe Tasks (Work) -->
+      <div class="card work-timeframes">
+        <h2 class="card-title">Timeframe tasks</h2>
+
+        <div class="time-tabs" id="workTimeTabs">
+          <button class="time-tab active" data-scope="daily">Daily</button>
+          <button class="time-tab" data-scope="weekly">Weekly</button>
+          <button class="time-tab" data-scope="monthly">Monthly</button>
+          <button class="time-tab" data-scope="long">Long term</button>
+        </div>
+
+        <form id="workTimeTaskForm" class="task-form">
+          <input type="text" id="workTimeTaskInput"
+                 placeholder="Add task to current tab..." autocomplete="off" />
+          <button type="submit" class="btn-add">Add</button>
+        </form>
+
+        <div id="workTimeTaskList" class="task-list"></div>
+        <div class="task-hint">
+          Tasks are grouped by Daily / Weekly / Monthly / Long term. Ticked items get a strike and go to the bottom.
+        </div>
+      </div>
+
 
       <div class="card work-goals">
         <h2 class="card-title">Goals</h2>

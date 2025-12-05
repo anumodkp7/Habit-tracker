@@ -154,6 +154,29 @@
         <div class="task-hint">Drag tasks to reorder. Checked = moved automatically to bottom.</div>
       </div>
 
+            <!-- Timeframe Tasks (Personal) -->
+      <div class="card personal-timeframes">
+        <h2 class="card-title">Timeframe tasks</h2>
+
+        <div class="time-tabs" id="personalTimeTabs">
+          <button class="time-tab active" data-scope="daily">Daily</button>
+          <button class="time-tab" data-scope="weekly">Weekly</button>
+          <button class="time-tab" data-scope="monthly">Monthly</button>
+          <button class="time-tab" data-scope="long">Long term</button>
+        </div>
+
+        <form id="personalTimeTaskForm" class="task-form">
+          <input type="text" id="personalTimeTaskInput"
+                 placeholder="Add task to current tab..." autocomplete="off" />
+          <button type="submit" class="btn-add">Add</button>
+        </form>
+
+        <div id="personalTimeTaskList" class="task-list"></div>
+        <div class="task-hint">
+          Tasks are grouped by Daily / Weekly / Monthly / Long term. Ticked items get a strike and go to the bottom.
+        </div>
+      </div>
+
       <!-- Goals -->
       <div class="card personal-goals">
         <h2 class="card-title">Goals</h2>

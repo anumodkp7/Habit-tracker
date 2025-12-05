@@ -884,7 +884,9 @@ function init() {
   renderPersonalFocusAndJournal();
   renderWorkTasks();
   renderWorkFocusAndJournal();
+  renderHabits();
   updateAllProgress();
 }
+
 
 document.addEventListener("DOMContentLoaded", init);

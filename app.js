@@ -141,6 +141,61 @@ const motivationList = [
   "Missing one day is normal. Don’t miss two.",
   "You don’t rise to your goals. You fall to your systems.",
 ];
+/* --------- HABIT TRACKER (HOME) --------- */
+
+const HABITS = [
+  { id: "wake6", label: "Wake up 6 am" },
+  { id: "water3l", label: "Drink 3L water" },
+  { id: "pushups100", label: "100 pushups" },
+  { id: "skill1_5h", label: "Skill development 1.5 hrs" },
+  { id: "makebed", label: "Make bed" },
+  { id: "chia", label: "Chia water" },
+  { id: "meditate", label: "Meditate" },
+  { id: "pray", label: "Pray" },
+  { id: "youtube", label: "YouTube" },
+  { id: "read20", label: "Read 20 min" },
+  { id: "journal", label: "Journaling" },
+  { id: "brain", label: "Brain challenge" }
+];
+
+let habitData = load(KEYS.habits, {}); // {dateKey: {habitId: true/false}}
+const habitListEl = $("habitList");
+
+function renderHabits() {
+  if (!habitListEl) return;
+  const key = dateKey(new Date());
+  if (!habitData[key]) habitData[key] = {};
+  const dayHabits = habitData[key];
+
+  habitListEl.innerHTML = "";
+
+  HABITS.forEach(h => {
+    const row = document.createElement("div");
+    row.className = "habit-item";
+
+    const label = document.createElement("label");
+
+    const check = document.createElement("input");
+    check.type = "checkbox";
+    check.className = "habit-check";
+    check.checked = !!dayHabits[h.id];
+
+    check.addEventListener("change", () => {
+      dayHabits[h.id] = check.checked;
+      save(KEYS.habits, habitData);
+    });
+
+    const span = document.createElement("span");
+    span.textContent = h.label;
+
+    label.appendChild(check);
+    label.appendChild(span);
+    row.appendChild(label);
+
+    habitListEl.appendChild(row);
+  });
+}
+
 const motivationText = $("motivationText");
 if (motivationText) {
   const q = motivationList[Math.floor(Math.random() * motivationList.length)];

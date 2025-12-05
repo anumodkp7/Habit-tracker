@@ -1,0 +1,644 @@
+/* ---------- GLOBAL RESET & ROOT THEME ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0d1117;
+  --bg-alt: #11151c;
+  --card: #161b22;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --accent-blue: #38bdf8;
+  --accent-green: #4ade80;
+  --accent-purple: #a78bfa;
+  --accent-yellow: #fbbf24;
+  --danger: #ef4444;
+  --card-radius: 14px;
+  --transition: 0.25s ease;
+  font-size: 16px;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#app {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Typography */
+h1, h2 {
+  font-weight: 600;
+}
+.page-title {
+  font-size: 1.9rem;
+  margin-bottom: 4px;
+}
+.card-title {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+.sub-title {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+/* ---------- SIDEBAR NAVIGATION ---------- */
+#sidebar {
+  width: 240px;
+  background: var(--bg-alt);
+  border-right: 1px solid #222;
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.logo {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 18px;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 14px 18px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--text-dim);
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.nav-btn:hover {
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--accent-blue);
+}
+
+.nav-btn.active {
+  background: var(--accent-blue);
+  color: #000;
+  font-weight: 600;
+}
+
+/* ---------- MAIN CONTENT AREA ---------- */
+#mainContent {
+  flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 32px 42px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.page {
+  display: none;
+  animation: fadePage 0.25s ease both;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fadePage {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- PAGE LAYOUT & CARDS ---------- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.date-picker-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+.date-picker-box input[type="date"] {
+  background: var(--card);
+  border: 1px solid #333;
+  color: var(--text);
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--card-radius);
+  padding: 20px 24px;
+  margin-top: 10px;
+  border: 1px solid #222;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.35);
+}
+
+.summary-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.tag {
+  background: #222;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  border: 1px solid #333;
+  opacity: 0.85;
+  display: inline-block;
+}
+
+/* ---------- GRID WIDGETS ---------- */
+.page-widgets {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+}
+
+.focus-card, .progress-card {
+  flex: 1;
+  min-width: 280px;
+}
+
+/* Progress ring */
+.progress-ring-wrapper {
+  position: relative;
+  width: 90px;
+  height: 90px;
+}
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.progress-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-left: 12px;
+}
+
+/* Inputs & Journal */
+.focus-input,
+.journal-input,
+.goal-input {
+  width: 100%;
+  background: #0e131a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 12px;
+  color: var(--text);
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 70px;
+  outline: none;
+}
+
+/* Goals collapsible sections */
+.goal-section {
+  margin-bottom: 12px;
+  border: 1px solid #262b34;
+  border-radius: 8px;
+  padding: 8px;
+}
+.goal-section summary {
+  cursor: pointer;
+  padding: 4px;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: var(--accent-purple);
+}
+
+/* Footer */
+#footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  padding-top: 8px;
+  border-top: 1px solid #222;
+}
+.footer-right {
+  display: flex;
+  gap: 10px;
+}
+
+/* ---------- HOME DASHBOARD ---------- */
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.today-date {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+}
+
+.home-top-widgets {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.motivation-card,
+.streak-card {
+  flex: 1;
+  min-width: 260px;
+  background: var(--card);
+  border-radius: var(--card-radius);
+  padding: 20px 24px;
+  border: 1px solid #222;
+}
+
+.motivation-label {
+  color: var(--accent-yellow);
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+.motivation-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* Streak card */
+.streak-label {
+  color: var(--accent-green);
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+.streak-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--accent-green);
+  margin-bottom: 4px;
+}
+.best-streak {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+
+/* Schedule */
+.home-schedule .card-title {
+  color: var(--accent-blue);
+}
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+.schedule-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #0e131a;
+  border: 1px solid #222;
+  border-radius: 10px;
+  transition: var(--transition);
+}
+.schedule-row.active-now {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
+  transform: scale(1.01);
+}
+.schedule-time {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+.schedule-task {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Schedule note */
+.schedule-note {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+/* Home progress / history */
+.home-progress .card-title {
+  color: var(--accent-green);
+}
+.home-history .card-title {
+  color: var(--accent-purple);
+}
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+.history-item {
+  background: #0e131a;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #222;
+  font-size: 0.95rem;
+}
+
+/* ---------- TASK LISTS (PERSONAL + WORK) ---------- */
+.task-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.task-form input {
+  flex: 1;
+  background: #0e131a;
+  border: 1px solid #333;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--text);
+}
+.btn-add {
+  background: var(--accent-blue);
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btn-add:hover {
+  background: #5fd4ff;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+/* Individual task row */
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0e131a;
+  border: 1px solid #222;
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: grab;
+  transition: var(--transition);
+}
+.task-row:active {
+  cursor: grabbing;
+}
+.task-text {
+  flex: 1;
+  font-size: 1rem;
+}
+.task-text.done {
+  text-decoration: line-through;
+  color: var(--text-dim);
+}
+
+/* Checkbox */
+.task-check {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-right: 14px;
+}
+
+/* Delete task button */
+.task-delete {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  color: var(--danger);
+  cursor: pointer;
+  margin-left: 10px;
+}
+.task-delete:hover {
+  opacity: 0.65;
+}
+
+/* Goals & journals color accents */
+.personal-goals .card-title,
+.work-goals .card-title {
+  color: var(--accent-purple);
+}
+.goal-input {
+  min-height: 80px;
+}
+.journal-input {
+  min-height: 140px;
+  line-height: 1.45;
+  font-size: 1rem;
+}
+
+/* Hints */
+.task-hint {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+
+/* ---------- BUTTONS & SPECIAL CONTROLS ---------- */
+
+.export-btn {
+  background: var(--accent-green);
+  color: #000;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.export-btn:hover {
+  background: #67ff9a;
+}
+
+.reset-btn {
+  background: var(--danger);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.reset-btn:hover {
+  opacity: 0.8;
+}
+
+/* Generic inputs */
+input, textarea, button {
+  font-family: inherit;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: #0e131a;
+}
+::-webkit-scrollbar-thumb {
+  background: #2b2f36;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b414c;
+}
+
+/* Hover highlight for draggable tasks */
+.task-row:hover {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: var(--accent-blue);
+}
+
+/* Smooth tap / click */
+button:active {
+  transform: scale(0.97);
+}
+
+/* ---------- RESPONSIVE DESIGN ---------- */
+
+@media (max-width: 1100px) {
+  #sidebar {
+    width: 200px;
+  }
+  #mainContent {
+    padding: 28px;
+  }
+}
+
+@media (max-width: 900px) {
+  #sidebar {
+    width: 180px;
+  }
+  .page-widgets {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 750px) {
+  #app {
+    flex-direction: column;
+  }
+
+  #sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #222;
+    padding: 14px 0;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .nav-menu {
+    flex-direction: row;
+    padding: 0 4px;
+  }
+
+  .nav-btn {
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+
+  #mainContent {
+    padding: 18px;
+  }
+
+  .card {
+    padding: 16px 18px;
+  }
+}
+
+@media (max-width: 550px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .date-picker-box {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .task-form {
+    flex-direction: column;
+  }
+
+  .btn-add {
+    width: 100%;
+    text-align: center;
+  }
+
+  .progress-overview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .summary-tags {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 430px) {
+  .page-title {
+    font-size: 1.5rem;
+  }
+  .card-title {
+    font-size: 1.15rem;
+  }
+  .home-header {
+    flex-direction: column;
+    gap: 6px;
+  }
+}

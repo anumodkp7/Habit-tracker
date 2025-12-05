@@ -692,10 +692,13 @@ function getCombinedTasksForDate(key) {
 }
 
 function computeDayPercent(key) {
-  const list = getCombinedTasksForDate(key);
-  const { percent } = calcProgress(list);
-  return percent;
+  const dayHabits = habitData[key] || {};
+  const total = HABITS.length;
+  const done = HABITS.filter(h => dayHabits[h.id]).length;
+  if (total === 0) return 0;
+  return Math.round((done / total) * 100);
 }
+
 
 function computeStreak() {
   // streak = consecutive days (including today) with 100% completion

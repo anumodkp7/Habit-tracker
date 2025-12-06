@@ -490,6 +490,135 @@ if (personalGoalLong)
     personalGoals.long = personalGoalLong.value;
     save(KEYS.personalGoals, personalGoals);
   });
+/* --------- PERSONAL TIMEFRAME TASKS --------- */
+
+const personalTimeTabs = $("personalTimeTabs");
+const personalTimeTaskForm = $("personalTimeTaskForm");
+const personalTimeTaskInput = $("personalTimeTaskInput");
+const personalTimeTaskList = $("personalTimeTaskList");
+
+let personalCurrentScope = "daily";
+
+function getPersonalTimeList(scope) {
+  if (!personalTimeTasks[scope]) personalTimeTasks[scope] = [];
+  return personalTimeTasks[scope];
+}
+
+function renderPersonalTimeTasks() {
+  if (!personalTimeTaskList) return;
+  const list = getPersonalTimeList(personalCurrentScope);
+
+  // sort: undone first, then by order
+  list.sort((a, b) => {
+    if (a.done === b.done) return a.order - b.order;
+    return a.done ? 1 : -1;
+  });
+
+  personalTimeTaskList.innerHTML = "";
+
+  list.forEach((task, index) => {
+    const row = document.createElement("div");
+    row.className = "task-row";
+    row.draggable = true;
+
+    const left = document.createElement("div");
+    left.style.display = "flex";
+    left.style.alignItems = "center";
+    left.style.gap = "8px";
+
+    const check = document.createElement("input");
+    check.type = "checkbox";
+    check.className = "task-check";
+    check.checked = task.done;
+
+    const text = document.createElement("div");
+    text.className = "task-text" + (task.done ? " done" : "");
+    text.textContent = task.text;
+
+    const del = document.createElement("button");
+    del.className = "task-delete";
+    del.textContent = "✕";
+
+    check.addEventListener("change", () => {
+      task.done = check.checked;
+      // move to bottom when done
+      task.order = Date.now();
+      save(KEYS.personalTimeTasks, personalTimeTasks);
+      renderPersonalTimeTasks();
+    });
+
+    del.addEventListener("click", () => {
+      const idx = list.indexOf(task);
+      if (idx !== -1) list.splice(idx, 1);
+      save(KEYS.personalTimeTasks, personalTimeTasks);
+      renderPersonalTimeTasks();
+    });
+
+    // drag and drop reordering
+    row.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", String(index));
+    });
+    row.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      row.style.opacity = "0.7";
+    });
+    row.addEventListener("dragleave", () => {
+      row.style.opacity = "1";
+    });
+    row.addEventListener("drop", (e) => {
+      e.preventDefault();
+      row.style.opacity = "1";
+      const fromIndex = Number(e.dataTransfer.getData("text/plain"));
+      const toIndex = index;
+      if (Number.isNaN(fromIndex)) return;
+      const [moved] = list.splice(fromIndex, 1);
+      list.splice(toIndex, 0, moved);
+      list.forEach((t, i) => (t.order = i));
+      save(KEYS.personalTimeTasks, personalTimeTasks);
+      renderPersonalTimeTasks();
+    });
+
+    left.appendChild(check);
+    left.appendChild(text);
+    row.appendChild(left);
+    row.appendChild(del);
+    personalTimeTaskList.appendChild(row);
+  });
+}
+
+if (personalTimeTabs) {
+  personalTimeTabs.addEventListener("click", (e) => {
+    const btn = e.target.closest(".time-tab");
+    if (!btn) return;
+    const scope = btn.dataset.scope;
+    if (!scope) return;
+    personalCurrentScope = scope;
+
+    Array.from(personalTimeTabs.querySelectorAll(".time-tab")).forEach((b) =>
+      b.classList.toggle("active", b === btn)
+    );
+
+    renderPersonalTimeTasks();
+  });
+}
+
+if (personalTimeTaskForm) {
+  personalTimeTaskForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const text = (personalTimeTaskInput.value || "").trim();
+    if (!text) return;
+    const list = getPersonalTimeList(personalCurrentScope);
+    list.push({
+      id: Date.now().toString(),
+      text,
+      done: false,
+      order: Date.now(),
+    });
+    personalTimeTaskInput.value = "";
+    save(KEYS.personalTimeTasks, personalTimeTasks);
+    renderPersonalTimeTasks();
+  });
+}
 
 /* --------- WORK PAGE LOGIC --------- */
 const workDatePicker = $("workDatePicker");

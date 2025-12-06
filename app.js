@@ -184,11 +184,10 @@ function renderHabits() {
     check.checked = !!dayHabits[h.id];
 
     check.addEventListener("change", () => {
-  dayHabits[h.id] = check.checked;
-  save(KEYS.habits, habitData);
-  updateAllProgress();   // << add this line
-});
-
+      dayHabits[h.id] = check.checked;
+      save(KEYS.habits, habitData);
+      updateAllProgress();   // 🔥 this forces Today’s Progress + streak to refresh
+    });
 
     const span = document.createElement("span");
     span.textContent = h.label;
@@ -201,11 +200,6 @@ function renderHabits() {
   });
 }
 
-const motivationText = $("motivationText");
-if (motivationText) {
-  const q = motivationList[Math.floor(Math.random() * motivationList.length)];
-  motivationText.textContent = q;
-}
 
 /* --------- TASK MODELS --------- */
 function createTask(text) {

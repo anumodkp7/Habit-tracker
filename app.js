@@ -1183,8 +1183,11 @@ function init() {
   renderWorkTasks();
   renderWorkFocusAndJournal();
   renderHabits();
+  renderPersonalTimeTasks();
+  renderWorkTimeTasks();
   updateAllProgress();
 }
+
 
 
 document.addEventListener("DOMContentLoaded", init);

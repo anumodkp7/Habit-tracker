@@ -816,6 +816,132 @@ if (workGoalLong)
     workGoals.long = workGoalLong.value;
     save(KEYS.workGoals, workGoals);
   });
+/* --------- WORK TIMEFRAME TASKS --------- */
+
+const workTimeTabs = $("workTimeTabs");
+const workTimeTaskForm = $("workTimeTaskForm");
+const workTimeTaskInput = $("workTimeTaskInput");
+const workTimeTaskList = $("workTimeTaskList");
+
+let workCurrentScope = "daily";
+
+function getWorkTimeList(scope) {
+  if (!workTimeTasks[scope]) workTimeTasks[scope] = [];
+  return workTimeTasks[scope];
+}
+
+function renderWorkTimeTasks() {
+  if (!workTimeTaskList) return;
+  const list = getWorkTimeList(workCurrentScope);
+
+  list.sort((a, b) => {
+    if (a.done === b.done) return a.order - b.order;
+    return a.done ? 1 : -1;
+  });
+
+  workTimeTaskList.innerHTML = "";
+
+  list.forEach((task, index) => {
+    const row = document.createElement("div");
+    row.className = "task-row";
+    row.draggable = true;
+
+    const left = document.createElement("div");
+    left.style.display = "flex";
+    left.style.alignItems = "center";
+    left.style.gap = "8px";
+
+    const check = document.createElement("input");
+    check.type = "checkbox";
+    check.className = "task-check";
+    check.checked = task.done;
+
+    const text = document.createElement("div");
+    text.className = "task-text" + (task.done ? " done" : "");
+    text.textContent = task.text;
+
+    const del = document.createElement("button");
+    del.className = "task-delete";
+    del.textContent = "✕";
+
+    check.addEventListener("change", () => {
+      task.done = check.checked;
+      task.order = Date.now();
+      save(KEYS.workTimeTasks, workTimeTasks);
+      renderWorkTimeTasks();
+    });
+
+    del.addEventListener("click", () => {
+      const idx = list.indexOf(task);
+      if (idx !== -1) list.splice(idx, 1);
+      save(KEYS.workTimeTasks, workTimeTasks);
+      renderWorkTimeTasks();
+    });
+
+    row.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", String(index));
+    });
+    row.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      row.style.opacity = "0.7";
+    });
+    row.addEventListener("dragleave", () => {
+      row.style.opacity = "1";
+    });
+    row.addEventListener("drop", (e) => {
+      e.preventDefault();
+      row.style.opacity = "1";
+      const fromIndex = Number(e.dataTransfer.getData("text/plain"));
+      const toIndex = index;
+      if (Number.isNaN(fromIndex)) return;
+      const [moved] = list.splice(fromIndex, 1);
+      list.splice(toIndex, 0, moved);
+      list.forEach((t, i) => (t.order = i));
+      save(KEYS.workTimeTasks, workTimeTasks);
+      renderWorkTimeTasks();
+    });
+
+    left.appendChild(check);
+    left.appendChild(text);
+    row.appendChild(left);
+    row.appendChild(del);
+    workTimeTaskList.appendChild(row);
+  });
+}
+
+if (workTimeTabs) {
+  workTimeTabs.addEventListener("click", (e) => {
+    const btn = e.target.closest(".time-tab");
+    if (!btn) return;
+    const scope = btn.dataset.scope;
+    if (!scope) return;
+    workCurrentScope = scope;
+
+    Array.from(workTimeTabs.querySelectorAll(".time-tab")).forEach((b) =>
+      b.classList.toggle("active", b === btn)
+    );
+
+    renderWorkTimeTasks();
+  });
+}
+
+if (workTimeTaskForm) {
+  workTimeTaskForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const text = (workTimeTaskInput.value || "").trim();
+    if (!text) return;
+    const list = getWorkTimeList(workCurrentScope);
+    list.push({
+      id: Date.now().toString(),
+      text,
+      done: false,
+      order: Date.now(),
+    });
+    workTimeTaskInput.value = "";
+    save(KEYS.workTimeTasks, workTimeTasks);
+    renderWorkTimeTasks();
+  });
+}
 
 /* --------- STREAK + HOME PROGRESS + HISTORY --------- */
 const homeCircle = $("homeProgressCircle");

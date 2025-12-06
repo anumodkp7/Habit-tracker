@@ -412,6 +412,33 @@ h1, h2 {
   border: 1px solid #222;
   font-size: 0.95rem;
 }
+/* Timeframe tabs */
+.time-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #222;
+  padding-bottom: 4px;
+}
+
+.time-tab {
+  background: transparent;
+  border: 1px solid #333;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.time-tab.active {
+  background: var(--accent-purple);
+  color: #000;
+  border-color: var(--accent-purple);
+  font-weight: 600;
+}
+
 
 /* ---------- TASK LISTS (PERSONAL + WORK) ---------- */
 .task-form {

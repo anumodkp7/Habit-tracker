@@ -35,16 +35,19 @@ const load = (key, fallback) => {
 
 /* --------- KEYS --------- */
 const KEYS = {
-  personalTasks: "lifeos_personalTasks_v1", // {dateKey: [task]}
+  personalTasks: "lifeos_personalTasks_v1",
   workTasks: "lifeos_workTasks_v1",
-  personalFocus: "lifeos_personalFocus_v1", // {dateKey: text}
+  personalFocus: "lifeos_personalFocus_v1",
   workFocus: "lifeos_workFocus_v1",
-  personalJournal: "lifeos_personalJournal_v1", // {dateKey: text}
+  personalJournal: "lifeos_personalJournal_v1",
   workJournal: "lifeos_workJournal_v1",
-  personalGoals: "lifeos_personalGoals_v1", // {daily, weekly, monthly, long}
+  personalGoals: "lifeos_personalGoals_v1",
   workGoals: "lifeos_workGoals_v1",
+  personalTimeTasks: "lifeos_personalTimeTasks_v1",
+  workTimeTasks: "lifeos_workTimeTasks_v1",
   habits: "lifeos_habits_v1"
 };
+
 
 /* --------- PAGE SWITCHING --------- */
 const navButtons = $$(".nav-btn");
@@ -230,6 +233,19 @@ let workGoals = load(KEYS.workGoals, {
   weekly: "",
   monthly: "",
   long: "",
+});
+let personalTimeTasks = load(KEYS.personalTimeTasks, {
+  daily: [],
+  weekly: [],
+  monthly: [],
+  long: [],
+});
+
+let workTimeTasks = load(KEYS.workTimeTasks, {
+  daily: [],
+  weekly: [],
+  monthly: [],
+  long: [],
 });
 
 let personalCurrentDate = dateKey(today);

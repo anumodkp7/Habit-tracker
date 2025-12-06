@@ -184,9 +184,11 @@ function renderHabits() {
     check.checked = !!dayHabits[h.id];
 
     check.addEventListener("change", () => {
-      dayHabits[h.id] = check.checked;
-      save(KEYS.habits, habitData);
-    });
+  dayHabits[h.id] = check.checked;
+  save(KEYS.habits, habitData);
+  updateAllProgress();   // << add this line
+});
+
 
     const span = document.createElement("span");
     span.textContent = h.label;
